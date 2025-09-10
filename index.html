@@ -1,84 +1,1661 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
-    <title>荣6的jsDelivr镜像站</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#157878">
-    <link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/rong6/jsd@main/css/normalize.css" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/rong6/jsd@main/css/cayman.css" type="text/css">
-</head>
-
-<body>
-    <section class="page-header">
-        <h1 class="project-name">荣6的jsDelivr镜像站</h1>
-        <h2 class="project-tagline">对中国大陆地区较为友好的jsDelivr镜像站。</h2>
-        <a href="https://jsd.nmmsl.top" class="btn">立即使用</a>
-    </section>
-
-    <section class="main-content">
-        <h1>
-            <a id="user-content-what-is-this" class="anchor" href="#what-is-this" aria-hidden="true"><span
-                    class="octicon octicon-link"></span></a>这是什么？
-        </h1>
-
-        <p>这是一个对中国大陆地区较为友好的jsDelivr（一个对开源项目静态文件的加速CDN）镜像站，它的网址是https://jsd.nmmsl.top 。</p>
-        <p><b>⚠由于流量过大，本人无力承受，请<a href="#self-deployment">自行部署</a>以获得最佳使用效果。</b></p>
-
-        <h1>
-            <a id="user-content-how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span
-                    class="octicon octicon-link"></span></a>如何使用？
-        </h1>
-
-        <p>首先你需要先知道jsDelivr的语法，详见<a href="https://www.jsdelivr.com">jsDelivr官网</a>。</p>
-        <p>然后，你就会得到一个原始的jsDelivr加速链接，例如：</p>
-
-        <pre><code>https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js</code></pre>
-
-        <p>将“cdn.jsdelivr.net”替换为“jsd.nmmsl.top”，就会得到例如：</p>
-
-        <pre><code>https://jsd.nmmsl.top/npm/jquery@3.6.4/dist/jquery.min.js</code></pre>
-
-        <p>然后，你就可以使用镜像站以获得更快的速度。</p>
-
-        <h1>
-            <a id="user-content-rules" class="anchor" href="#rules" aria-hidden="true"><span
-                    class="octicon octicon-link"></span></a>使用规则
-        </h1>
-
-        <p>为保证服务长远，也为了你我不被请喝茶，请遵守以下规则：</p>
-
-        <ul class="task-list">
-            <li><b>本站不保证长期可用，建议<a href="#self-deployment">自行部署</a>。</b></li>
-            <li>请勿加速<b>不符合中国大陆及美国等地区法律法规的文件</b>，包括但不限于淫秽色情、血腥暴力、涉政内容。</li>
-            <li><b>单个文件最大为 5MB</b>，超过限制的文件将无法访问。</li>
-            <li><b>所有文件缓存时间为 24 小时</b>，以提升访问速度。</li>
-        </ul>
-
-        <h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsDelivr镜像服务 - 安全高效的CDN加速平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --secondary-blue: #0056b3;
+            --light-blue: #e6f2ff;
+            --dark-blue: #003d7a;
+            --accent-teal: #20c997;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-dark: #212529;
+            --text-gray: #6c757d;
+        }
         
-            <a id="self-deployment" class="anchor" href="#self-deployment" aria-hidden="true"><span
-                    class="octicon octicon-link"></span></a>自部署
-        </h1>
-        <p>本站是开源的，你可以自行部署，开源地址：<a href="https://github.com/rong6/jsd">rong6/jsd - GitHub</a>。Vercel免费计划下每月有<b>100G流量</b>，自用已经足够。</p>
-        <p>要使用自己的服务器，可以使用Nginx进行反向代理，配置文件：<a href="https://github.com/rong6/jsd/blob/main/nginx.conf">nginx.conf</a>。</p>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-teal);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* 英雄区域样式 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            padding: 120px 0;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 80%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            animation: fadeInUp 1.4s ease-out;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary-blue);
+        }
+        
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--primary-blue);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light-gray);
+        }
+        
+        /* 功能特性区域样式 */
+        .features {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-teal);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 123, 255, 0.15);
+            border-color: rgba(0, 123, 255, 0.2);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--primary-blue);
+            font-size: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .feature-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        
+        /* 使用方法模块样式 */
+        .usage {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .usage-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .step-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            transition: transform 0.4s ease;
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+        }
+        
+        .step-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--dark-blue);
+            text-align: center;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary-blue);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* 链接转换模块样式 */
+        .converter {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .converter-box {
+            background: var(--light-gray);
+            border-radius: 15px;
+            padding: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .input-group input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 2px 15px rgba(0, 123, 255, 0.15);
+            outline: none;
+        }
+        
+        .btn-convert {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: var(--white);
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: block;
+            margin: 30px auto;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+        
+        .btn-convert:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+        
+        .result-box {
+            background-color: var(--white);
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            min-height: 120px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .result-title {
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .result-code {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+            line-height: 1.6;
+            border-left: 3px solid var(--primary-blue);
+        }
+        
+        /* SRI生成模块样式 */
+        .sri-generator {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .sri-box {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+        
+        .hash-options {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .hash-option {
+            display: flex;
+            align-items: center;
+            background: var(--light-blue);
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .hash-option:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .hash-option:hover label {
+            color: var(--white);
+        }
+        
+        .hash-option input {
+            margin-right: 10px;
+        }
+        
+        .sri-intro {
+            background-color: var(--light-blue);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary-blue);
+        }
+        
+        .sri-intro h3 {
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+            font-size: 1.3rem;
+        }
+        
+        .sri-intro p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        
+        /* 常用库模块样式 */
+        .popular-libs {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .libs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .lib-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 123, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .lib-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.15);
+        }
+        
+        .lib-header {
+            padding: 25px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+        }
+        
+        .lib-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .lib-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        
+        .lib-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        
+        .lib-content p {
+            margin-bottom: 20px;
+            line-height: 1.7;
+            color: var(--text-gray);
+        }
+        
+        .lib-footer {
+            padding: 0 25px 25px;
+            text-align: center;
+        }
+        
+        .btn-lib {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-lib:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        /* 技术规格区域样式 */
+        .specs {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .specs-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+        
+        .specs-image {
+            flex: 1;
+            min-width: 300px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .specs-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .specs-list {
+            list-style: none;
+        }
+        
+        .specs-list li {
+            margin-bottom: 25px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.8;
+        }
+        
+        .specs-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* 使用案例区域样式 */
+        .use-cases {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .case-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+        
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.15);
+        }
+        
+        .case-content {
+            padding: 30px;
+        }
+        
+        .case-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .case-card p {
+            line-height: 1.8;
+            color: var(--text-gray);
+        }
+        
+        .case-logo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: var(--light-gray);
+        }
+        
+        .case-logo i {
+            font-size: 48px;
+        }
+        
+        /* CTA区域样式 */
+        .cta {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 80%);
+        }
+        
+        .cta .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        .cta .btn {
+            background-color: var(--white);
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            padding: 16px 40px;
+            font-weight: 700;
+        }
+        
+        .cta .btn:hover {
+            background-color: var(--light-gray);
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 80px 0 40px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-teal);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-teal);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footer-logo i {
+            margin-right: 15px;
+            color: var(--accent-teal);
+        }
+        
+        .footer-bottom p {
+            margin: 8px 0;
+        }
+        
+        /* 动画关键帧 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cta h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.0rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .converter-box,
+            .sri-box {
+                padding: 30px;
+            }
+            
+            .step-card,
+            .lib-card {
+                min-width: 100%;
+            }
+            
+            .specs-container {
+                flex-direction: column;
+            }
+            
+            .specs-image {
+                min-height: 200px;
+            }
+            
+            .footer-content {
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card,
+            .step-card,
+            .case-card,
+            .lib-card {
+                padding: 30px 20px;
+            }
+            
+            .hash-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>jsDelivr镜像服务</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">功能特性</a></li>
+                    <li><a href="#usage">使用方法</a></li>
+                    <li><a href="#converter">链接转换</a></li>
+                    <li><a href="#sri">SRI生成</a></li>
+                    <li><a href="#libs">常用库</a></li>
+                    <li><a href="#specs">技术规格</a></li>
+                    <li><a href="#use-cases">使用案例</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <h1><a id="user-content-end" class="anchor" href="#end" aria-hidden="true"><span
-                    class="octicon octicon-link"></span></a>写在最后</h1>
-
-        <p>最后，祝您使用愉快！</p>
-
-        <p>如有问题，请邮箱发至<a href="mailto:rong6@rong6.cn">rong6@bocchi.ing</a></p>
-
-        <footer class="site-footer">
-            <span class="site-footer-owner"> Copyright © 2024 <a href="https://rong6.cn">rong6</a>.</span>
-            <span class="site-footer-credits"><a href="https://github.com/jasonlong/cayman-theme">Cayman</a> is
-                maintained by <a href="https://github.com/jasonlong">jasonlong</a>.</span>
-        </footer>
-
+    <!-- 英雄区域 -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>高性能jsDelivr镜像服务</h1>
+                <p>为开发者提供安全、快速、可靠的CDN加速服务，支持GitHub资源，全球节点加速，提升您的网站加载速度</p>
+                <div class="hero-buttons">
+                    <a href="#converter" class="btn btn-primary">立即使用</a>
+                    <a href="#usage" class="btn btn-outline">查看文档</a>
+                </div>
+            </div>
+        </div>
     </section>
 
-</body>
+    <!-- 功能特性 -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心功能特性</h2>
+                <p>我们的镜像服务提供了一系列强大功能，满足开发者的各种需求</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>全球加速</h3>
+                    <p>全球多个数据中心节点，智能CDN加速，资源加载速度提升300%</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>安全可靠</h3>
+                    <p>HTTPS加密传输，支持SRI完整性校验，确保资源安全</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>自动同步</h3>
+                    <p>实时同步GitHub资源，确保资源最新可用</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>无限带宽</h3>
+                    <p>完全免费，无带宽限制，适合各种规模的项目</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub支持</h3>
+                    <p>专为GitHub仓库资源优化的CDN加速服务</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>开发者友好</h3>
+                    <p>提供API接口，支持链接转换和SRI生成工具</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 使用方法模块 -->
+    <section class="usage" id="usage">
+        <div class="container">
+            <div class="section-title">
+                <h2>使用方法</h2>
+                <p>简单几步即可开始使用我们的镜像服务</p>
+            </div>
+            <div class="usage-steps">
+                <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <h3>使用GitHub资源</h3>
+                    <p>将GitHub资源链接转换为镜像链接：</p>
+                    <div class="code-block">
+                        // 原始链接<br>
+                        https://github.com/user/repo/blob/main/file.js<br><br>
+                        
+                        // 镜像链接<br>
+                        https://jsdelivr.nakeu.cn/gh/user/repo@main/file.js
+                    </div>
+                </div>
+                <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">2</div>
+                    <h3>在HTML中使用</h3>
+                    <p>在HTML文件中直接引用资源：</p>
+                    <div class="code-block">
+                        &lt;!-- 引入jQuery --&gt;<br>
+                        &lt;script src="https://jsdelivr.nakeu.cn/gh/jquery/jquery@3.6.0/dist/jquery.min.js"&gt;&lt;/script&gt;<br><br>
+                        
+                        &lt;!-- 引入Bootstrap CSS --&gt;<br>
+                        &lt;link rel="stylesheet" href="https://jsdelivr.nakeu.cn/gh/twbs/bootstrap@5.1.3/dist/css/bootstrap.min.css"&gt;
+                    </div>
+                </div>
+                <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">3</div>
+                    <h3>使用转换工具</h3>
+                    <p>使用我们的GitHub链接转换工具快速生成镜像链接：</p>
+                    <div class="code-block">
+                        // 输入GitHub资源URL<br>
+                        https://github.com/user/repo/blob/main/file.js<br><br>
+                        
+                        // 工具自动生成镜像链接<br>
+                        https://jsdelivr.nakeu.cn/gh/user/repo@main/file.js
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub链接转换模块 -->
+    <section class="converter" id="converter">
+        <div class="container">
+            <div class="section-title">
+                <h2>GitHub链接转换工具</h2>
+                <p>将GitHub资源URL转换为镜像链接</p>
+            </div>
+            <div class="converter-box" data-aos="fade-up">
+                <div class="input-group">
+                    <label for="github-full-url">GitHub资源完整URL：</label>
+                    <input type="text" id="github-full-url" placeholder="https://github.com/user/repo/blob/main/file.js">
+                </div>
+                <button class="btn-convert" onclick="convertUrl()">转换为镜像链接</button>
+                <div class="result-box" id="converted-url-result">
+                    <div class="result-title">转换结果：</div>
+                    <div class="result-code" id="converted-url">转换结果将显示在这里</div>
+                    <div class="result-title">HTML使用示例：</div>
+                    <div class="result-code" id="html-example">示例代码将显示在这里</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SRI生成模块 -->
+    <section class="sri-generator" id="sri">
+        <div class="container">
+            <div class="section-title">
+                <h2>SRI哈希生成工具</h2>
+                <p>生成子资源完整性(SRI)哈希值，增强资源安全性</p>
+            </div>
+            <div class="sri-box" data-aos="fade-up">
+                <div class="sri-intro">
+                    <h3>什么是SRI？</h3>
+                    <p>子资源完整性(SRI)是一种安全功能，允许浏览器验证获取的资源（例如从CDN获取的）是否被篡改。</p>
+                    <p>在HTML中使用：</p>
+                    <div class="code-block">
+                        &lt;script src="https://example.com/example.js"
+                        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+                        crossorigin="anonymous"&gt;&lt;/script&gt;
+                    </div>
+                    <p>使用SRI可以防止恶意第三方篡改资源内容，提高网站安全性。</p>
+                </div>
+                
+                <div class="input-group">
+                    <label for="resource-url">资源URL：</label>
+                    <input type="text" id="resource-url" placeholder="https://jsdelivr.nakeu.cn/gh/user/repo@main/file.js">
+                </div>
+                
+                <div class="hash-options">
+                    <div class="hash-option">
+                        <input type="radio" id="sha256" name="hash-algorithm" value="sha256" checked>
+                        <label for="sha256">SHA-256</label>
+                    </div>
+                    <div class="hash-option">
+                        <input type="radio" id="sha384" name="hash-algorithm" value="sha384">
+                        <label for="sha384">SHA-384</label>
+                    </div>
+                    <div class="hash-option">
+                        <input type="radio" id="sha512" name="hash-algorithm" value="sha512">
+                        <label for="sha512">SHA-512</label>
+                    </div>
+                </div>
+                
+                <button class="btn-convert" onclick="generateSRI()">生成SRI哈希</button>
+                <div class="result-box" id="sri-result">
+                    <div class="result-title">SRI哈希值：</div>
+                    <div class="result-code" id="sri-hash">SRI哈希值将显示在这里</div>
+                    <div class="result-title">HTML使用示例：</div>
+                    <div class="result-code" id="sri-example">示例代码将显示在这里</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常用库模块 -->
+    <section class="popular-libs" id="libs">
+        <div class="container">
+            <div class="section-title">
+                <h2>常用库展示</h2>
+                <p>一键获取常用库的镜像链接</p>
+            </div>
+            <div class="libs-grid">
+                <div class="lib-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="lib-header">
+                        <div class="lib-icon">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <h3>jQuery</h3>
+                    </div>
+                    <div class="lib-content">
+                        <p>快速、小巧且功能丰富的JavaScript库。它使HTML文档遍历和操作、事件处理、动画和Ajax等操作变得更加简单。</p>
+                    </div>
+                    <div class="lib-footer">
+                        <button class="btn-lib" onclick="useLibrary('jquery')">快速使用</button>
+                    </div>
+                </div>
+                <div class="lib-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="lib-header">
+                        <div class="lib-icon">
+                            <i class="fab fa-bootstrap"></i>
+                        </div>
+                        <h3>Bootstrap</h3>
+                    </div>
+                    <div class="lib-content">
+                        <p>世界上最流行的前端开源工具包，具有Sass变量和mixins、响应式网格系统、大量预构建组件等功能。</p>
+                    </div>
+                    <div class="lib-footer">
+                        <button class="btn-lib" onclick="useLibrary('bootstrap')">快速使用</button>
+                    </div>
+                </div>
+                <div class="lib-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="lib-header">
+                        <div class="lib-icon">
+                            <i class="fab fa-vuejs"></i>
+                        </div>
+                        <h3>Vue.js</h3>
+                    </div>
+                    <div class="lib-content">
+                        <p>用于构建用户界面的渐进式JavaScript框架。Vue被设计为自底向上逐层应用，核心库只关注视图层。</p>
+                    </div>
+                    <div class="lib-footer">
+                        <button class="btn-lib" onclick="useLibrary('vue')">快速使用</button>
+                    </div>
+                </div>
+                <div class="lib-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="lib-header">
+                        <div class="lib-icon">
+                            <i class="fab fa-react"></i>
+                        </div>
+                        <h3>React</h3>
+                    </div>
+                    <div class="lib-content">
+                        <p>用于构建用户界面的JavaScript库。React使创建交互式UI变得简单，为应用程序中的每个状态设计简单视图。</p>
+                    </div>
+                    <div class="lib-footer">
+                        <button class="btn-lib" onclick="useLibrary('react')">快速使用</button>
+                    </div>
+                </div>
+                <div class="lib-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="lib-header">
+                        <div class="lib-icon">
+                            <i class="fab fa-font-awesome"></i>
+                        </div>
+                        <h3>Font Awesome</h3>
+                    </div>
+                    <div class="lib-content">
+                        <p>互联网最流行的图标集和工具包。Font Awesome提供可缩放矢量图标，可以使用CSS进行自定义。</p>
+                    </div>
+                    <div class="lib-footer">
+                        <button class="btn-lib" onclick="useLibrary('fontawesome')">快速使用</button>
+                    </div>
+                </div>
+                <div class="lib-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="lib-header">
+                        <div class="lib-icon">
+                            <i class="fab fa-laravel"></i>
+                        </div>
+                        <h3>Lodash</h3>
+                    </div>
+                    <div class="lib-content">
+                        <p>一个现代JavaScript实用程序库，提供模块化、高性能和额外功能。Lodash使JavaScript更简单。</p>
+                    </div>
+                    <div class="lib-footer">
+                        <button class="btn-lib" onclick="useLibrary('lodash')">快速使用</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术规格 -->
+    <section class="specs" id="specs">
+        <div class="container">
+            <div class="section-title">
+                <h2>技术规格</h2>
+                <p>支持多种技术标准和协议</p>
+            </div>
+            <div class="specs-container">
+                <div class="specs-image" data-aos="fade-right">
+                    <i class="fas fa-server" style="font-size: 100px; color: white;"></i>
+                </div>
+                <div class="specs-content" data-aos="fade-left">
+                    <ul class="specs-list">
+                        <li>HTTP/2 和 HTTP/3 (QUIC) 支持</li>
+                        <li>TLS 1.3 加密传输</li>
+                        <li>Brotli 和 Gzip 压缩支持</li>
+                        <li>全球多个CDN节点部署</li>
+                        <li>支持GitHub仓库资源</li>
+                        <li>自动同步上游资源</li>
+                        <li>API访问支持</li>
+                        <li>实时监控和日志系统</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 使用案例 -->
+    <section class="use-cases" id="use-cases">
+        <div class="container">
+            <div class="section-title">
+                <h2>使用案例</h2>
+                <p>全球知名项目都在使用jsDelivr</p>
+            </div>
+            <div class="cases-grid">
+                <div class="case-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="case-logo">
+                        <i class="fab fa-bootstrap" style="font-size: 40px; color: #7952b3;"></i>
+                    </div>
+                    <div class="case-content">
+                        <h3>Bootstrap</h3>
+                        <p>世界上最流行的前端框架，通过jsDelivr为全球开发者提供CDN服务。</p>
+                    </div>
+                </div>
+                <div class="case-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="case-logo">
+                        <i class="fab fa-vuejs" style="font-size: 40px; color: #42b883;"></i>
+                    </div>
+                    <div class="case-content">
+                        <h3>Vue.js</h3>
+                        <p>渐进式JavaScript框架，官方推荐使用jsDelivr作为CDN服务提供商。</p>
+                    </div>
+                </div>
+                <div class="case-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="case-logo">
+                        <i class="fab fa-react" style="font-size: 40px; color: #61dafb;"></i>
+                    </div>
+                    <div class="case-content">
+                        <h3>React</h3>
+                        <p>用于构建用户界面的JavaScript库，官方文档推荐使用jsDelivr CDN。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA区域 -->
+    <section class="cta">
+        <div class="container">
+            <h2>立即使用高性能镜像服务</h2>
+            <p>完全免费，无带宽限制，为您的网站提供全球加速</p>
+            <a href="#converter" class="btn">开始使用</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-bolt"></i>
+                <span>jsDelivr镜像服务</span>
+            </div>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>关于我们</h3>
+                    <p>提供安全、高效、稳定的CDN加速服务，为开发者提供全球资源分发解决方案。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>产品服务</h3>
+                    <ul>
+                        <li><a href="#features">功能特性</a></li>
+                        <li><a href="#usage">使用文档</a></li>
+                        <li><a href="#converter">GitHub转换</a></li>
+                        <li><a href="#sri">SRI生成</a></li>
+                        <li><a href="#">API接口</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>技术支持</h3>
+                    <ul>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">状态监控</a></li>
+                        <li><a href="#">开发者社区</a></li>
+                        <li><a href="#">提交工单</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>法律条款</h3>
+                    <ul>
+                        <li><a href="#">服务协议</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">使用条款</a></li>
+                        <li><a href="#">版权声明</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 南科北上（香港）科技有限公司. 保留所有权利.</p>
+                <p>本服务为jsDelivr的镜像服务，jsDelivr是jsDelivr LLC的注册商标</p>
+                <p>免责声明：我方仅提供服务，非法用途由用户承担责任。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script>
+        // 初始化AOS动画库
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-in-out'
+        });
+        
+        // 初始化Clipboard.js
+        new ClipboardJS('.btn-copy');
+        
+        // 链接转换功能
+        function convertUrl() {
+            const githubUrl = document.getElementById('github-full-url').value;
+            if (!githubUrl) {
+                document.getElementById('converted-url').innerHTML = '请输入有效的GitHub链接';
+                document.getElementById('html-example').innerHTML = '';
+                return;
+            }
+            
+            try {
+                // 解析GitHub URL
+                const githubRegex = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/(?:blob|raw)\/([^\/]+)\/(.+)/i;
+                const match = githubUrl.match(githubRegex);
+                
+                if (match && match.length >= 5) {
+                    const user = match[1];
+                    const repo = match[2];
+                    const branch = match[3];
+                    const filePath = match[4];
+                    
+                    // 构建镜像链接
+                    const convertedUrl = `https://jsdelivr.nakeu.cn/gh/${user}/${repo}@${branch}/${filePath}`;
+                    
+                    // 显示结果
+                    document.getElementById('converted-url').innerHTML = convertedUrl;
+                    
+                    // 生成HTML使用示例
+                    const fileExt = filePath.split('.').pop();
+                    let htmlExample = '';
+                    
+                    if (fileExt === 'js') {
+                        htmlExample = `&lt;script src="${convertedUrl}" crossorigin="anonymous"&gt;&lt;/script&gt;`;
+                    } else if (fileExt === 'css') {
+                        htmlExample = `&lt;link rel="stylesheet" href="${convertedUrl}" crossorigin="anonymous"&gt;`;
+                    } else {
+                        htmlExample = `&lt;!-- 使用资源: ${convertedUrl} --&gt;`;
+                    }
+                    
+                    document.getElementById('html-example').innerHTML = htmlExample;
+                } else {
+                    document.getElementById('converted-url').innerHTML = 'GitHub资源URL格式不正确，请使用格式：https://github.com/user/repo/blob/main/file.js';
+                    document.getElementById('html-example').innerHTML = '';
+                }
+            } catch (error) {
+                document.getElementById('converted-url').innerHTML = '转换过程中发生错误';
+                document.getElementById('html-example').innerHTML = '';
+            }
+        }
+        
+        // SRI生成功能
+        async function generateSRI() {
+            const resourceUrl = document.getElementById('resource-url').value;
+            if (!resourceUrl) {
+                document.getElementById('sri-hash').innerHTML = '请输入资源URL';
+                document.getElementById('sri-example').innerHTML = '';
+                return;
+            }
+            
+            // 获取选择的算法
+            const algorithm = document.querySelector('input[name="hash-algorithm"]:checked').value;
+            
+            try {
+                // 获取资源内容
+                const response = await fetch(resourceUrl);
+                if (!response.ok) {
+                    throw new Error(`资源加载失败: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.arrayBuffer();
+                
+                // 计算哈希
+                const hashBuffer = await crypto.subtle.digest(algorithm.toUpperCase(), data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                const sriHash = `${algorithm}-${btoa(String.fromCharCode(...new Uint8Array(hashBuffer)))}`;
+                
+                // 显示结果
+                document.getElementById('sri-hash').innerHTML = sriHash;
+                
+                // 生成HTML使用示例
+                const fileExt = resourceUrl.split('.').pop();
+                let htmlExample = '';
+                
+                if (fileExt === 'js') {
+                    htmlExample = `&lt;script src="${resourceUrl}" integrity="${sriHash}" crossorigin="anonymous"&gt;&lt;/script&gt;`;
+                } else if (fileExt === 'css') {
+                    htmlExample = `&lt;link rel="stylesheet" href="${resourceUrl}" integrity="${sriHash}" crossorigin="anonymous"&gt;`;
+                } else {
+                    htmlExample = `&lt;!-- 使用资源: ${resourceUrl} --&gt;`;
+                }
+                
+                document.getElementById('sri-example').innerHTML = htmlExample;
+            } catch (error) {
+                document.getElementById('sri-hash').innerHTML = `错误: ${error.message}`;
+                document.getElementById('sri-example').innerHTML = '';
+            }
+        }
+        
+        // 常用库快速使用功能
+        function useLibrary(libName) {
+            let githubUrl = '';
+            let fileName = '';
+            
+            switch(libName) {
+                case 'jquery':
+                    githubUrl = 'https://github.com/jquery/jquery/blob/main/dist/jquery.min.js';
+                    fileName = 'jquery.min.js';
+                    break;
+                case 'bootstrap':
+                    githubUrl = 'https://github.com/twbs/bootstrap/blob/main/dist/css/bootstrap.min.css';
+                    fileName = 'bootstrap.min.css';
+                    break;
+                case 'vue':
+                    githubUrl = 'https://github.com/vuejs/vue/blob/main/dist/vue.min.js';
+                    fileName = 'vue.min.js';
+                    break;
+                case 'react':
+                    githubUrl = 'https://github.com/facebook/react/blob/main/umd/react.production.min.js';
+                    fileName = 'react.production.min.js';
+                    break;
+                case 'fontawesome':
+                    githubUrl = 'https://github.com/FortAwesome/Font-Awesome/blob/6.x/css/all.min.css';
+                    fileName = 'all.min.css';
+                    break;
+                case 'lodash':
+                    githubUrl = 'https://github.com/lodash/lodash/blob/main/lodash.min.js';
+                    fileName = 'lodash.min.js';
+                    break;
+            }
+            
+            if (githubUrl) {
+                document.getElementById('github-full-url').value = githubUrl;
+                convertUrl();
+                
+                // 滚动到转换工具区域
+                document.querySelector('#converter').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加滚动动画
+            const animateOnScroll = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animateOnScroll.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
 </html>
