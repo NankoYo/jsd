@@ -1,6 +1,6 @@
 <!--
 // +---------------------------------------------+
-// | Name: Nanke-Static
+// | Name: Nanke-Jsdelivr
 // +---------------------------------------------+
 // | Author: Mr.南科【NanKoYo】<www.nakeu.cn>
 // +---------------------------------------------+
@@ -8,7 +8,7 @@
 // +---------------------------------------------+
 // | Created: PHPStorm
 // +---------------------------------------------+
-// | Date: 2025年10月22日
+// | Date: 2025年10月26日
 // +---------------------------------------------+
 -->
 <!doctype html>
@@ -18,18 +18,59 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <title>Nanke-Static - 提供稳定高效的静态分发服务</title>
-    <meta name="description" content="Nanke-Static - 提供稳定高效的静态分发服务">
-    <meta name="keywords" content="Nanke-Static,NanKoYo">
+    <title>Nanke-Jsdelivr - 提供稳定高效的Nanke-Jsdelivr镜像分发服务</title>
+    <meta name="description" content="Nanke-Jsdelivr - 提供稳定高效的Nanke-Jsdelivr镜像分发服务">
+    <meta name="keywords" content="Nanke-Jsdelivr,NanKoYo">
     <link rel="shortcut icon" href="https://cdn.nakeu.cn/favicon.png">
     <link rel="stylesheet" type="text/css" href="https://jsdelivr.nakeu.cn/gh/nfwl/static@main/Nanke_Static/css/main.css">
     <script src="https://jsdelivr.nakeu.cn/gh/nfwl/static@main/Nanke_Static/js/jquery.min.js"></script>
     <script src="https://jsdelivr.nakeu.cn/gh/nfwl/static@main/Nanke_Static/js/page.js"></script>
+    <style>
+        /* ===== 访客信息扩展===== */
+        .info-row{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          margin:10px 0;
+          padding:10px 15px;
+          background:rgba(255,255,255,.05);
+          border-radius:4px;
+          transition:background .3s;
+        }
+        .info-row:hover{background:rgba(255,255,255,.1);}
+        .info-label{
+          width:25%;          /* 复用已有的 .about ul.skill li p 宽度 */
+          margin-right:3%;
+          text-align:right;
+          font-size:12px;
+          letter-spacing:1px;
+        }
+        .info-val{
+          width:20%;
+          text-align:left;
+          font-size:12px;
+          color:rgba(255,255,255,.85);
+        }
+        
+        /* ===== 点亮图标===== */
+        .info-ic{
+          display:inline-block;
+          width:8px;
+          height:8px;
+          border-radius:100%;
+          background:#fff;
+          box-shadow:0 0 6px #fff;
+          opacity:0;
+          transition:opacity .4s;
+        }
+        /* 加载完成后点亮 */
+        .info-ic.on{opacity:1;}
+    </style>
 </head>
 
 <body>
     <div class="background"></div>
-    <nav><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=431738813&amp;site=qq&amp;menu=yes" target="_blank">联系我</a><a class="active">Nanke-Static主页</a><a title="时间的颜色OwO" class="time">#Loading</a></nav>
+    <nav><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=431738813&amp;site=qq&amp;menu=yes" target="_blank">联系我</a><a class="active">Nanke-Jsdelivr主页</a><a title="时间的颜色OwO" class="time">#Loading</a></nav>
     <div class="main">
         <div class="ch intro">
             <div class="el"><span></span><span></span><span></span><span></span></div>
@@ -38,19 +79,19 @@
                     <p id="hitokoto"></p>
                 </h1>
                 <h4>
-                    <div class="circle"><span></span><span></span><span></span></div>Nanke-Static
+                    <div class="circle"><span></span><span></span><span></span></div>Nanke-Jsdelivr
                 </h4>
-                <h3>为用户提供静态资源全球分发服务</h3>
+                <h3>为用户提供Nanke-Jsdelivr镜像全球分发服务</h3>
             </div>
         </div>
         <div class="ch about">
             <div class="container">
-                <h2 class="chtitle">Hi，<span>这里是 Nanke-Static</span></h2>
+                <h2 class="chtitle">Hi，<span>这里是 南科北上</span></h2>
                 <div class="clear">
                     <div class="introduct">
                         <p>本站提供静态资源全球分发服务！</p>
                         <p>使用教程：</p>
-                        <p>1.找到使用默认域名（cdn.jsdeliver.net）的资源</p>
+                        <p>1.找到使用默认域名（cdn.jsdelivr.net）的资源</p>
                         <p>2.将默认域名替换为服务域名（jsdelivr.nakeu.cn）</p>
                     </div>
                     <ul class="skill">
@@ -88,10 +129,48 @@
                 </div>
             </div>
         </div>
+        <!-- 赞助商模块-->
         <div class="gate ch">
             <div class="container links">
                 <h2 class="chtitle">由以下提供<span>赞助</span></h2>
-                <div class="clear"><a href="index.html" target="_blank">
+                <div class="clear">
+                    <a href="/" target="_blank" rel="nofollow">
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="https://gravatar.nakeu.cn/avatar/13f4fce9d4994d742a0ce7d98ab99600?size=256&format=webp">
+                            </div>
+                            <div class="inner">
+                                <h5>诗婷</h5>
+                                <p>资金支持</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://example.com" target="_blank" rel="nofollow">
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="https://gravatar.nakeu.cn/avatar/f272e4de414469dd4e6026304240d13e?size=256&format=webp">
+                            </div>
+                            <div class="inner">
+                                <h5>雾里看花</h5>
+                                <p>技术支持</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://example.com" target="_blank" rel="nofollow">
+                        <div class="item">
+                            <div class="avatar">
+                                <img src="https://gravatar.nakeu.cn/avatar/32f0d822990973d50bce234914d92e1c?size=256&format=webp">
+                            </div>
+                            <div class="inner">
+                                <h5>Movie.</h5>
+                                <p>运维支持</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="index.html" target="_blank">
                         <div class="item">
                             <div class="avatar"><img src="http://q4.qlogo.cn/headimg_dl?dst_uin=431738813&amp;spec=100"></div>
                             <div class="inner">
@@ -99,20 +178,201 @@
                                 <p>程序作者</p>
                             </div>
                         </div>
-                    </a></div>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="footer ch">
             <div class="container">
-                <h4>Nanke-Static</h4>本站使用 <a href="https://www.vallengine.cn" rel="nofollow" target="_blank">VallEngine</a> & <a href="https://smartpages.nakeu.cn" rel="nofollow" target="_blank">SmartPages</a> 引擎驱动页面<br><span>Copyright © 2025<a href="index.html">Nanke-Static</a>All right reserved.</span>
+                <h4>Nanke-Jsdelivr</h4>本站使用 <a href="https://www.vallengine.cn" rel="nofollow" target="_blank">VallEngine</a> & <a href="https://smartpages.nakeu.cn" rel="nofollow" target="_blank">SmartPages</a> 引擎驱动页面<br><span>Copyright © 2025<a href="index.html">Nanke-Jsdelivr</a>All right reserved.</span>
             </div>
         </div>
     </div>
+    <!-- 打字机：单句永久循环，打→停10s→删→空1s→再打 -->
+    <script>
+        (() => {
+          /* ===== 可调参数 ===== */
+          const typeSpeed   = 90,      // 打字间隔
+                delSpeed    = 40,      // 删除间隔
+                stayTime    = 10000,   // 完整句子停留
+                blankTime   = 1000,    // 删空后等待
+                cursorColor = '#fff';  // 光标颜色
+        
+          /* ===== 逻辑 ===== */
+          const box = document.querySelector('#hitokoto');
+          if (!box) return;
+        
+          let raw = '';                // 仅赋值一次
+          let i   = 0;                 // 打字指针
+          let T   = null;              // setTimeout 句柄
+        
+          /* 光标 */
+          const cursor = document.createElement('span');
+          cursor.className = 'tk-cursor';
+          cursor.textContent = '|';
+          Object.assign(cursor.style, {
+            color     : cursorColor,
+            display   : 'inline-block',
+            width     : '0.6em',
+            textAlign : 'left',
+            animation : `blink 530ms infinite`
+          });
+          box.appendChild(cursor);
+        
+          /* 只等第一次句子出现 */
+          const ob = new MutationObserver(() => {
+            const txt = box.textContent.trim();
+            if (!txt) return;
+            ob.disconnect();          // 监听一次就关掉
+            raw = txt;
+            box.textContent = '';
+            box.appendChild(cursor);
+            type();                   // 开始循环
+          });
+          ob.observe(box, { characterData: true, subtree: true, childList: true });
+        
+          /* 打字 */
+          function type() {
+            if (i < raw.length) {
+              cursor.insertAdjacentText('beforebegin', raw[i++]);
+              T = setTimeout(type, typeSpeed);
+            } else {
+              T = setTimeout(erase, stayTime);
+            }
+          }
+        
+          /* 删除 */
+          function erase() {
+            if (box.childNodes.length > 1) {
+              box.childNodes[box.childNodes.length - 2].remove();
+              T = setTimeout(erase, delSpeed);
+            } else {
+              i = 0;                            // 指针归零
+              T = setTimeout(type, blankTime);  // 空 1s 后重新打字
+            }
+          }
+        
+          /* 光标闪烁关键帧 */
+          const style = document.createElement('style');
+          style.textContent = `@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}`;
+          document.head.appendChild(style);
+        })();
+    </script>
     <script src="https://v1.hitokoto.cn/?encode=js&amp;select=%23hitokoto" defer></script>
     <script src="https://jsdelivr.nakeu.cn/gh/nfwl/static@main/Nanke_Static/js/jquery.js"></script>
     <script src="https://jsdelivr.nakeu.cn/gh/nfwl/static@main/Nanke_Static/js/layer.js"></script>
     <script>
-        layer.msg('欢迎访问 Nanke_Static');
+        $(function () {
+          const html = `
+        <div class="ch visitor-info">
+          <div class="container">
+            <h2 class="chtitle">访客信息 <span>实时检测</span></h2>
+            <ul class="skill">
+              <li class="info-row">
+                <p class="info-label">CDN 节点</p>
+                <span class="info-val" id="cdnNode">加载中…</span>
+                <i class="info-ic" id="cdnNodeIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">访客国家</p>
+                <span class="info-val" id="visitorCountry">加载中…</span>
+                <i class="info-ic" id="visitorCountryIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">TLS 版本</p>
+                <span class="info-val" id="httpEncryption">加载中…</span>
+                <i class="info-ic" id="httpEncryptionIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">SNI</p>
+                <span class="info-val" id="sni">加载中…</span>
+                <i class="info-ic" id="sniIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">您的 IP</p>
+                <span class="info-val" id="userIP">加载中…</span>
+                <i class="info-ic" id="userIPIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">User-Agent</p>
+                <span class="info-val" id="userAgent">加载中…</span>
+                <i class="info-ic" id="userAgentIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">密钥交换机制</p>
+                <span class="info-val" id="keyExchange">加载中…</span>
+                <i class="info-ic" id="keyExchangeIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">请求 ID</p>
+                <span class="info-val" id="flInfo">加载中…</span>
+                <i class="info-ic" id="flInfoIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">请求接口</p>
+                <span class="info-val" id="hInfo">加载中…</span>
+                <i class="info-ic" id="hInfoIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">HTTP 协议版本</p>
+                <span class="info-val" id="httpAccessInfo">加载中…</span>
+                <i class="info-ic" id="httpAccessInfoIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">当前时间</p>
+                <span class="info-val" id="timestamp">加载中…</span>
+                <i class="info-ic" id="timestampIc"></i>
+              </li>
+              <li class="info-row">
+                <p class="info-label">请求分割</p>
+                <span class="info-val" id="sliver">加载中…</span>
+                <i class="info-ic" id="sliverIc"></i>
+              </li>
+            </ul>
+          </div>
+        </div>`;
+        
+          /* 插入到 About 之后 */
+          $('.about').after(html);
+        
+          /* 3. 拉取数据 → 更新文字 + 点亮图标 */
+          $.ajax({
+            url: 'https://api.nakeu.cn/cdn-cgi/trace',
+            type: 'GET',
+            dataType: 'text',
+            success: function (d) {
+              const map = [
+                {k:'colo',  id:'cdnNode',      ic:'cdnNodeIc'},
+                {k:'loc',   id:'visitorCountry',ic:'visitorCountryIc'},
+                {k:'tls',   id:'httpEncryption',ic:'httpEncryptionIc'},
+                {k:'sni',   id:'sni',          ic:'sniIc'},
+                {k:'ip',    id:'userIP',       ic:'userIPIc'},
+                {k:'uag',   id:'userAgent',    ic:'userAgentIc'},
+                {k:'kex',   id:'keyExchange',  ic:'keyExchangeIc'},
+                {k:'fl',    id:'flInfo',       ic:'flInfoIc'},
+                {k:'h',     id:'hInfo',        ic:'hInfoIc'},
+                {k:'http',  id:'httpAccessInfo',ic:'httpAccessInfoIc'},
+                {k:'ts',    id:'timestamp',    ic:'timestampIc', fn: v => new Date(v*1000).toLocaleString()},
+                {k:'sliver',id:'sliver',       ic:'sliverIc'}
+              ];
+              map.forEach(o => {
+                try{
+                  let val = d.split(o.k+'=')[1].split('\n')[0];
+                  if(o.fn) val = o.fn(val);
+                  $(`#${o.id}`).text(val);
+                  $(`#${o.ic}`).addClass('on'); // 点亮
+                }catch(e){}
+              });
+            },
+            error: () => {
+              $('.info-val').text('获取失败');
+              $('.info-ic').addClass('on'); // 统一点亮，避免空白
+            }
+          });
+        });
+    </script>
+    <script>
+        layer.msg('欢迎访问 Nanke_API');
     </script>
     <script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/175658518110" key="175658518110" m="1"></script>
 </body>
